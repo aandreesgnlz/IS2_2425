@@ -11,7 +11,7 @@ public class Motocicleta extends Vehiculo {
 
 	public Motocicleta(long id, String matricula, LocalDate fechaMatriculacion, TipoMotor motor, int cilindrada) {
 		super(id, matricula, fechaMatriculacion, motor);
-		//TODO
+		this.cilindrada = cilindrada;
 	}
 
 	/**
@@ -23,8 +23,20 @@ public class Motocicleta extends Vehiculo {
 
 	@Override
 	public double precioImpuesto() {
-		//TODO
-		return 0;
+		double importe = 0;
+		if (cilindrada < 125) {
+			importe = 8.00;
+        } else if (cilindrada < 250) {
+        	importe = 15.00;
+        } else if (cilindrada < 500) {
+        	importe = 30.00;
+        } else if (cilindrada < 1000) {
+        	importe = 60.00;
+        } else {
+        	importe = 100.00;
+        }
+		
+		return aplicarDescuento(importe);
+			
 	}
-
 }

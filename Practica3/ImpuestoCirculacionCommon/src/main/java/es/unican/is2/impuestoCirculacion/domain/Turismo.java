@@ -11,7 +11,7 @@ public class Turismo extends Vehiculo {
 	
 	public Turismo(long id, String matricula, LocalDate fechaMatriculacion, TipoMotor motor, double potencia) {
 		super(id, matricula, fechaMatriculacion, motor);
-		//TODO
+		this.potencia = potencia;
 	}
 
 	/**
@@ -23,8 +23,20 @@ public class Turismo extends Vehiculo {
 
 	@Override
 	public double precioImpuesto() {
-		//TODO
-		return 0;
+		double importe = 0;
+		if (potencia < 8) {
+			importe = 25.00;
+        } else if (potencia < 12) {
+        	importe = 67.00;
+        } else if (potencia < 16) {
+        	importe = 143.00;
+        } else if (potencia < 20) {
+        	importe = 178.00;
+        } else {
+        	importe = 223.00;
+        }
+		
+		return aplicarDescuento(importe);
 	}
 
 }

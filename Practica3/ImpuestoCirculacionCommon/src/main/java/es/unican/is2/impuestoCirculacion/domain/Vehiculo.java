@@ -15,9 +15,14 @@ public abstract class Vehiculo {
 	private LocalDate fechaMatriculacion;
 	private TipoMotor motor;
 
-	// TODO
+	/**
+     * Constructor de Vehiculo
+     */
 	public Vehiculo(long id, String matricula, LocalDate fechaMatriculacion, TipoMotor motor) {
-		// TODO
+		this.id = id;
+        this.matricula = matricula;
+        this.fechaMatriculacion = fechaMatriculacion;
+        this.motor = motor;
 	}
 
 	/**
@@ -47,8 +52,33 @@ public abstract class Vehiculo {
 	public long getId() {
 		return id;
 	}
+	
+	/**
+	 * Calcula el importe una vez aplicado el descuento
+	 * @param importe Importe al que se le aplicara el descuento
+	 * @return el importe una vez se le ha aplicado el descuento
+	 */
+	protected double aplicarDescuento(double importe) {
+		if (fechaMatriculacion.plusYears(25).isBefore(LocalDate.now())) {
+			importe = importe * 0.0;
+		}
+		
+		else if (motor == TipoMotor.ELECTRICO) {
+			importe = importe * 0.25;
+		}
+		else if (motor == TipoMotor.HIBRIDO && fechaMatriculacion.plusYears(4).isAfter(LocalDate.now())) {
+			importe = importe * 0.25;
+		}
+		else if (motor == TipoMotor.GAS && fechaMatriculacion.plusYears(1).isAfter(LocalDate.now())) {
+			importe = importe * 0.5;
+		}
+		return importe;
+	}
 
-	// TODO
+	/**
+	 * Calcula el precio del impuesto de circulacion del vehiculo
+	 * @return el precio del impuesto de circulacion del vehiculo
+	 */
 	public abstract double precioImpuesto();
 
 }
