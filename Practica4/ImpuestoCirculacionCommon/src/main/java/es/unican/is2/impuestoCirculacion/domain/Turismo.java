@@ -9,8 +9,12 @@ public class Turismo extends Vehiculo {
 
 	private double potencia;
 	
-	public Turismo(long id, String matricula, LocalDate fechaMatriculacion, TipoMotor motor, double potencia) {
+	
+	public Turismo(long id, String matricula, LocalDate fechaMatriculacion, TipoMotor motor, double potencia) throws RuntimeException {
 		super(id, matricula, fechaMatriculacion, motor);
+		if (matricula == null) {
+			throw new RuntimeException("Matricula no valida");
+		}
 		this.potencia = potencia;
 	}
 
@@ -22,8 +26,11 @@ public class Turismo extends Vehiculo {
 	}
 
 	@Override
-	public double precioImpuesto() {
+	public double precioImpuesto() throws RuntimeException {
 		double importe = 0;
+		if (potencia <= 0) {
+			throw new RuntimeException("Potencia no valida");
+		}
 		if (potencia < 8) {
 			importe = 25.00;
         } else if (potencia < 12) {

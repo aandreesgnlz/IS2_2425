@@ -56,10 +56,15 @@ public abstract class Vehiculo {
 	/**
 	 * Calcula el importe una vez aplicado el descuento
 	 * @param importe Importe al que se le aplicara el descuento
+	 * @throws RuntimeException Lanza una excepcion
 	 * @return el importe una vez se le ha aplicado el descuento
 	 */
-	protected double aplicarDescuento(double importe) {
-		if (fechaMatriculacion.plusYears(25).isBefore(LocalDate.now())) {
+	protected double aplicarDescuento(double importe) throws RuntimeException {
+		if (fechaMatriculacion.isAfter(LocalDate.now())) {
+			throw new RuntimeException("Fecha matriculacion no es valida");
+		}
+		
+		if (fechaMatriculacion.plusYears(25).isBefore(LocalDate.now()) || fechaMatriculacion.plusYears(25).isEqual(LocalDate.now())) {
 			importe = importe * 0.0;
 		}
 		
@@ -77,8 +82,9 @@ public abstract class Vehiculo {
 
 	/**
 	 * Calcula el precio del impuesto de circulacion del vehiculo
+	 * @throws RuntimeException Lanza una excepcion
 	 * @return el precio del impuesto de circulacion del vehiculo
 	 */
-	public abstract double precioImpuesto();
+	public abstract double precioImpuesto() throws RuntimeException;
 
 }

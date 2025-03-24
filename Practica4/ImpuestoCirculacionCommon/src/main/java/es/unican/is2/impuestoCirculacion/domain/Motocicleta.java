@@ -9,8 +9,11 @@ public class Motocicleta extends Vehiculo {
 
 	private int cilindrada;
 
-	public Motocicleta(long id, String matricula, LocalDate fechaMatriculacion, TipoMotor motor, int cilindrada) {
+	public Motocicleta(long id, String matricula, LocalDate fechaMatriculacion, TipoMotor motor, int cilindrada) throws RuntimeException {
 		super(id, matricula, fechaMatriculacion, motor);
+		if (matricula == null) {
+			throw new RuntimeException("Matricula no valida");
+		}
 		this.cilindrada = cilindrada;
 	}
 
@@ -22,15 +25,18 @@ public class Motocicleta extends Vehiculo {
 	}
 
 	@Override
-	public double precioImpuesto() {
+	public double precioImpuesto() throws RuntimeException {
+		if (cilindrada <= 0) {
+			throw new RuntimeException("Cilindrada no valida");
+		}
 		double importe = 0;
-		if (cilindrada < 125) {
+		if (cilindrada <= 125) {
 			importe = 8.00;
         } else if (cilindrada < 250) {
         	importe = 15.00;
-        } else if (cilindrada < 500) {
+        } else if (cilindrada <= 500) {
         	importe = 30.00;
-        } else if (cilindrada < 1000) {
+        } else if (cilindrada <= 1000) {
         	importe = 60.00;
         } else {
         	importe = 100.00;
