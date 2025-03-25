@@ -6,32 +6,33 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import es.unican.is2.impuestoCirculacion.business.IInfoImpuestoCirculacion;
-import es.unican.is2.impuestoCirculacion.domain.Contribuyente;
-import es.unican.is2.impuestoCirculacion.domain.Vehiculo;
-import es.unican.is2.impuestoCirculacion.exceptions.DataAccessException;
+import es.unican.is2.impuestoCirculacion.dao.ContribuyentesDAO;
+import es.unican.is2.impuestoCirculacion.dao.IContribuyentesDAO;
+import es.unican.is2.impuestoCirculacion.dao.IVehiculosDAO;
+import es.unican.is2.impuestoCirculacion.dao.VehiculosDAO;
+
 
 public class ITVistaFuncionarioTest {
 
 	private FrameFixture demo;
-
-	IInfoImpuestoCirculacion infoStub = new IInfoImpuestoCirculacion() {
-		@Override
-		public Contribuyente contribuyente(String dni) throws DataAccessException {
-			// TODO Auto-generated method stub
-			return new Contribuyente("Juan", "Gomez", "Perez", "12345678A");
-		}
-		@Override
-		public Vehiculo vehiculo(String matricula) throws DataAccessException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	};
-
+	
 	@BeforeEach
-	public void setUp() {
-		VistaFuncionario gui = new VistaFuncionario(infoStub);
+	public void setUp() {	
+		
+	    IContribuyentesDAO contribuyentesDAO = new ContribuyentesDAO();	    
+	    IVehiculosDAO vehiculosDAO = new VehiculosDAO(); 
+
+	    // Crear la instancia de GestionImpuestoCirculacion
+	    IInfoImpuestoCirculacion info = new GestionImpuestoCirculacion(contribuyentesDAO, vehiculosDAO);
+		
+		VistaFuncionario gui = new VistaFuncionario(info);
 		demo = new FrameFixture(gui);
 		gui.setVisible(true);	
+        try {
+            Thread.sleep(500); // Espera 500 ms
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@AfterEach
@@ -41,9 +42,10 @@ public class ITVistaFuncionarioTest {
 
 	@Test 
 	public void testBuscarContribuyenteExistente() { 
-		demo.textBox("txtDniContribuyente").setText("12345678A"); 
+		demo.textBox("txtDniContribuyente").setText("11111111A"); 
 		demo.button("btnBuscar").click(); 
-		demo.textBox("txtNombreContribuyente").requireText("Juan Gomez Perez"); 
+		demo.textBox("txtNombreContribuyente").requireText("Juan Perez Lopez"); 
+		
 		//demo.textBox("txtTotalContribuyente").requireText("300.50"); 
 		//demo.list("listMatriculasVehiculos").requireMa("1234-ABC", "5678-DEF"); 
 
@@ -54,6 +56,7 @@ public class ITVistaFuncionarioTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 	}
 }
