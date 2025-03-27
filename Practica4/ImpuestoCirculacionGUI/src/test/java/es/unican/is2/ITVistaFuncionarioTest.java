@@ -44,7 +44,7 @@ public class ITVistaFuncionarioTest {
 	public void testBuscarContribuyenteExistente() { 
 		demo.textBox("txtDniContribuyente").setText("11111111A"); 
 		demo.button("btnBuscar").click(); 
-		demo.textBox("txtNombreContribuyente").requireText("Juan Perez Lopez"); 
+		demo.textBox("txtNombreContribuyente").requireText("Juan Lopez Perez"); 
 		
 		//demo.textBox("txtTotalContribuyente").requireText("300.50"); 
 		//demo.list("listMatriculasVehiculos").requireMa("1234-ABC", "5678-DEF"); 
