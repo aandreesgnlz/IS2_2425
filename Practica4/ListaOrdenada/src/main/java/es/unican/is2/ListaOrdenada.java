@@ -12,11 +12,17 @@ public class ListaOrdenada<E extends Comparable<E>> implements IListaOrdenada<E>
 
 	private List<E> lista = new ArrayList<E>();
 
-	public E get(int indice) {
+	public E get(int indice) throws IndexOutOfBoundsException {
+		if (indice < 0 || indice >= lista.size()) {
+            throw new IndexOutOfBoundsException();
+        }
 		return lista.get(indice);
 	}
 
-	public void add(E elemento) {
+	public void add(E elemento) throws NullPointerException {
+		if (elemento == null) {
+            throw new NullPointerException();
+        }
 		int indice = 0;
 		if (lista.size() != 0) {
 			while (indice < lista.size() && elemento.compareTo(lista.get(indice)) > 0) { // en vez de < 0 es > 0
@@ -26,7 +32,10 @@ public class ListaOrdenada<E extends Comparable<E>> implements IListaOrdenada<E>
 		lista.add(indice, elemento);
 	}
 
-	public E remove(int indice) {
+	public E remove(int indice) throws IndexOutOfBoundsException {
+		if (indice < 0 || indice >= lista.size()) {
+            throw new IndexOutOfBoundsException();
+        }
 		E borrado = lista.remove(indice);
 		return borrado;
 	}
