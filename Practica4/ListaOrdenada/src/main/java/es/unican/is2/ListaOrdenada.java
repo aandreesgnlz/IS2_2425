@@ -49,5 +49,5 @@ public class ListaOrdenada<E extends Comparable<E>> implements IListaOrdenada<E>
 			lista.remove(i);
 		}
 	}
-	//debemos eliminar la lista de atras hacia delante, ya que la posicion 0 si lo borramos de alante a atras se vera modificada
+	//debemos eliminar la lista de atras hacia delante, ya que la posicion 0 si lo borramos de adelante a atras se vera modificada
 }
