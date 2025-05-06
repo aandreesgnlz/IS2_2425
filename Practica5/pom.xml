@@ -11,4 +11,10 @@
 		<scope>test</scope>
   	</dependency>
   </dependencies>
+  <properties>
+  	<maven.compiler.source>17</maven.compiler.source>
+  	<maven.compiler.target>17</maven.compiler.target>
+  	<sonar.token>sqa_5d6ef6227d0932729e2e30d98e2f60262a1840b1</sonar.token>
+	<sonar.host.url>http://localhost:9000</sonar.host.url>
+  </properties>
 </project>
